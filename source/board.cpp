@@ -2,6 +2,9 @@
 // Kabylkas Labs. and Texer.AI. All rights reserved.
 #include "board.h"
 
+// Local libraries.
+#include "cell.h"
+
 namespace sudsol
 {
     // Class implementation.

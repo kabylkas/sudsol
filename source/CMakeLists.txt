@@ -1,5 +1,5 @@
 # Paths.
-set(SRC_DIR ../src)
+set(SRC_DIR ../source)
 
 # Add sources for the main project
 set(SOURCES
@@ -11,11 +11,6 @@ set(HEADERS
     ${SRC_DIR}/cell.h
 )
 
-# Create the main executable
-add_executable(${PROJECT_NAME} ${SOURCES})
-
-# Link any libraries if needed (example)
-# target_link_libraries(${PROJECT_NAME} PRIVATE SomeLibrary)
 # Create the main executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 

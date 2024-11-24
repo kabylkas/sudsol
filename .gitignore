@@ -1,0 +1,71 @@
+# Ignore build directories
+/build/
+/cmake-build-debug/
+/cmake-build-release/
+/CMakeFiles/
+/CMakeCache.txt
+Makefile
+CTestTestfile.cmake
+cmake_install.cmake
+
+# Ignore executables and libraries
+*.out
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Ignore generated files
+*.o
+*.obj
+*.lo
+*.slo
+*.mod
+*.mod.c
+*.dir/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.pid
+*.seed
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+*.iml
+
+# Ignore package files
+*.tar.gz
+*.zip
+*.7z
+*.bz2
+*.xz
+
+# Ignore test result files
+Testing/
+test_results/
+
+# Ignore coverage files
+*.gcno
+*.gcda
+*.gcov
+
+# Ignore dependency files
+*.d
+*.dep
+
+# Ignore Python virtual environments if applicable
+.venv/
+env/
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore Windows specific files
+Thumbs.db
+
