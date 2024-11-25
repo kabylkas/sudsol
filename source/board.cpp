@@ -4,6 +4,7 @@
 
 // C++ libraries.
 #include <fstream>
+#include <iostream>
 
 // Local libraries.
 #include "cell.h"
@@ -20,6 +21,9 @@ namespace sudsol
     static const char* kErrorStringXYOutOfRange = "Error: Position is out of range.";
     static const char* kErrorStringValueOutOfRange = "Error: Value is out of range.";
     static const char* kErrorStringNoFile = "Error: Could not open the file.";
+    static const char* kErrorIncorrectFileFormatRows = "Error: Incorrect file. Should be 9 rows.";
+    static const char* kErrorIncorrectFileFormatCols = "Error: Incorrect file. Should be 9 columns.";
+    static const char* kErrorIncorrectFileFormatChar = "Error: Incorrect file. Unexpected value in the board.";
 
     // Class implementation.
     struct Board::BoardImpl
@@ -110,9 +114,53 @@ namespace sudsol
         bool is_fail = false;
 
         std::ifstream file(file_path);
-        if (file.is_open()) {
+        if (file.is_open())
+        {
             std::string line;
-            while (std::getline(file, line)) {
+            uint16_t row = 0;
+            while (!is_fail && std::getline(file, line))
+            {
+                if (row < 9)
+                {
+                    if (line.size() == 9)
+                    {
+                        for (size_t i = 0; !is_fail && i < kMaxXY; i++)
+                        {
+                            char c = line[i];
+                            if (c == '-')
+                            {
+                                pimpl_->board[row][i].value = 0;
+                            }
+                            else if (c >= '1' && c <= '9')
+                            {
+                                pimpl_->board[row][i].value = c - '0';
+                            }
+                            else
+                            {
+                                is_fail = true;
+                                err_message = kErrorIncorrectFileFormatChar;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        is_fail = true;
+                        err_message = kErrorIncorrectFileFormatCols;
+                    }
+                }
+                else
+                {
+                    is_fail = true;
+                    err_message = kErrorIncorrectFileFormatRows;
+                }
+
+                ++row;
+            }
+
+            if (!is_fail && row < 8)
+            {
+                is_fail = true;
+                err_message = kErrorIncorrectFileFormatRows;
             }
         }
         else
