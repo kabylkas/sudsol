@@ -13,4 +13,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_subdirectory(source)
 
 # Testing.
-#add_subdirectory(test)
+add_subdirectory(test)

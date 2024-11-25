@@ -1,5 +1,5 @@
-// Copyright (c) 2024.
-// Kabylkas Labs. and Texer.AI. All rights reserved.
+// Copyright (c) 2024. All rights reserved.
+// Kabylkas Labs and Texer.AI.
 
 // C++ libraries.
 #include <iostream>
