@@ -10,6 +10,21 @@
 #include "board.h"
 #include "cell.h"
 
+using CellPtrs = std::vector<std::shared_ptr<sudsol::Cell>>;
+
+namespace aux
+{
+    static bool AreEqual(const CellPtrs& cell_ptrs, const std::vector<uint16_t> compare_values)
+    {
+        bool should_abort = cell_ptrs.size() != compare_values.size();
+        for (size_t i = 0; !should_abort && i < sudsol::Board::kMaxXY; i++)
+        {
+            should_abort = (cell_ptrs[i]->value != compare_values[i]);
+        }
+        return !should_abort;
+    }
+}
+
 int main()
 {
     sudsol::Board board;
@@ -20,18 +35,12 @@ int main()
         std::cout << err_message << std::endl;
     }
 
+    bool are_equal = false;
     std::vector<std::shared_ptr<sudsol::Cell>> cell_ptrs;
     if (board.GetHorizontalLine(3, cell_ptrs, err_message))
     {
-        assert(cell_ptrs[0]->value == 0);
-        assert(cell_ptrs[1]->value == 4);
-        assert(cell_ptrs[2]->value == 5);
-        assert(cell_ptrs[3]->value == 6);
-        assert(cell_ptrs[4]->value == 4);
-        assert(cell_ptrs[5]->value == 0);
-        assert(cell_ptrs[6]->value == 0);
-        assert(cell_ptrs[7]->value == 0);
-        assert(cell_ptrs[8]->value == 0);
+        are_equal = aux::AreEqual(cell_ptrs, {0, 4, 5, 6, 4, 0, 0, 0, 0});
+        assert(are_equal);
     }
     else
     {

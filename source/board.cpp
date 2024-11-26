@@ -12,15 +12,14 @@
 namespace sudsol
 {
     // Constants.
-    static const uint16_t kMaxXY               = 9;
     static const uint16_t kMinValue            = 1;
     static const uint16_t kMaxValue            = 9;
     static const uint16_t kSudokuSubSquareSize = 3;
 
     // Constant error messages.
-    static const char* kErrorStringXYOutOfRange = "Error: Position is out of range.";
-    static const char* kErrorStringValueOutOfRange = "Error: Value is out of range.";
-    static const char* kErrorStringNoFile = "Error: Could not open the file.";
+    static const char* kErrorStringXYOutOfRange      = "Error: Position is out of range.";
+    static const char* kErrorStringValueOutOfRange   = "Error: Value is out of range.";
+    static const char* kErrorStringNoFile            = "Error: Could not open the file.";
     static const char* kErrorIncorrectFileFormatRows = "Error: Incorrect file. Should be 9 rows.";
     static const char* kErrorIncorrectFileFormatCols = "Error: Incorrect file. Should be 9 columns.";
     static const char* kErrorIncorrectFileFormatChar = "Error: Incorrect file. Unexpected value in the board.";
