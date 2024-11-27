@@ -12,17 +12,63 @@
 
 using CellPtrs = std::vector<std::shared_ptr<sudsol::Cell>>;
 
+static const uint16_t kDontCare = 0;
+
+enum class SudokuBoardSubset
+{
+    kUndefined,
+    kHorizontalLine,
+    kVerticalLine,
+    kSquare
+};
+
 namespace aux
 {
-    static bool AreEqual(const CellPtrs& cell_ptrs, const std::vector<uint16_t> compare_values)
+    static void TestEqual(const sudsol::Board& board, uint16_t x, uint16_t y,
+        SudokuBoardSubset board_subset, const std::vector<uint16_t> compare_values,
+        uint32_t line_number)
     {
-        bool should_abort = cell_ptrs.size() != compare_values.size();
-        for (size_t i = 0; !should_abort && i < sudsol::Board::kMaxXY; i++)
+        bool is_retrieved = false;
+        std::vector<std::shared_ptr<sudsol::Cell>> cell_ptrs;
+        std::string err_message;
+        switch (board_subset)
         {
-            should_abort = (cell_ptrs[i]->value != compare_values[i]);
+        case SudokuBoardSubset::kHorizontalLine:
+            is_retrieved = board.GetHorizontalLine(y, cell_ptrs, err_message);
+            break;
+        case SudokuBoardSubset::kVerticalLine:
+            is_retrieved = board.GetVerticalLine(x, cell_ptrs, err_message);
+            break;
+        case SudokuBoardSubset::kSquare:
+            is_retrieved = board.GetSquare(x, y, cell_ptrs, err_message);
+            break;
+        default:
+            err_message = "Error: Could not retrieve subset from the board.";
+            break;
         }
-        return !should_abort;
+
+        bool are_equal = false;
+        if (is_retrieved)
+        {
+            are_equal = cell_ptrs.size() == compare_values.size();
+            for (size_t i = 0; are_equal && i < sudsol::Board::kMaxXY; i++)
+            {
+                are_equal = (cell_ptrs[i]->value == compare_values[i]);
+            }
+
+            if (!are_equal)
+            {
+                err_message = "Error: Comparison failed.";
+            }
+        }
+
+
+        if (!is_retrieved || !are_equal)
+        {
+            std::cerr << "Test case at line " << line_number << " failed. " << err_message << "." << std::endl;
+        }
     }
+
 }
 
 int main()
@@ -35,17 +81,7 @@ int main()
         std::cout << err_message << std::endl;
     }
 
-    bool are_equal = false;
-    std::vector<std::shared_ptr<sudsol::Cell>> cell_ptrs;
-    if (board.GetHorizontalLine(3, cell_ptrs, err_message))
-    {
-        are_equal = aux::AreEqual(cell_ptrs, {0, 4, 5, 6, 4, 0, 0, 0, 0});
-        assert(are_equal);
-    }
-    else
-    {
-        std::cout << err_message << std::endl;
-    }
+    aux::TestEqual(board, kDontCare, 3, SudokuBoardSubset::kHorizontalLine, {0, 4, 5, 6, 4, 0, 0, 0, 0}, __LINE__);
 
     return 0;
 }

@@ -38,15 +38,15 @@ namespace sudsol
         }
     }
 
-    bool Board::GetHorizontalLine(uint16_t x, std::vector<std::shared_ptr<Cell>>& cell_ptrs, std::string& err_message) const
+    bool Board::GetHorizontalLine(uint16_t y, std::vector<std::shared_ptr<Cell>>& cell_ptrs, std::string& err_message) const
     {
         bool is_fail = false;
-        if (x < kMaxXY)
+        if (y < kMaxXY)
         {
             cell_ptrs.resize(kMaxXY);
             for (size_t i = 0; i < kMaxXY; i++)
             {
-                cell_ptrs[i] = std::make_shared<Cell>(pimpl_->board[x][i]);
+                cell_ptrs[i] = std::make_shared<Cell>(pimpl_->board[y][i]);
             }
         }
         else
@@ -57,15 +57,15 @@ namespace sudsol
         return !is_fail;
     }
 
-    bool Board::GetVerticalLine(uint16_t y, std::vector<std::shared_ptr<Cell>>& cell_ptrs, std::string& err_message) const
+    bool Board::GetVerticalLine(uint16_t x, std::vector<std::shared_ptr<Cell>>& cell_ptrs, std::string& err_message) const
     {
         bool is_fail = false;
-        if (y < kMaxXY)
+        if (x < kMaxXY)
         {
             cell_ptrs.resize(kMaxXY);
             for (size_t i = 0; i < kMaxXY; i++)
             {
-                cell_ptrs[i] = std::make_shared<Cell>(pimpl_->board[i][y]);
+                cell_ptrs[i] = std::make_shared<Cell>(pimpl_->board[i][x]);
             }
         }
         else
