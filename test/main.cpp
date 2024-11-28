@@ -65,7 +65,7 @@ namespace aux
 
         if (!is_retrieved || !are_equal)
         {
-            std::cerr << "Test case at line " << line_number << " failed. " << err_message << "." << std::endl;
+            std::cerr << "Test case at line " << line_number << " failed. " << err_message << std::endl;
         }
     }
 
@@ -76,12 +76,30 @@ int main()
     sudsol::Board board;
     std::string err_message;
     bool is_loaded = board.Load("../../test/golden_data/board.txt", err_message);
-    if (!is_loaded)
+    if (is_loaded)
+    {
+        // Check horizontal.
+        aux::TestEqual(board, kDontCare, 0, SudokuBoardSubset::kHorizontalLine, {1, 2, 3, 4, 5, 6, 7, 8, 0}, __LINE__);
+        aux::TestEqual(board, kDontCare, 1, SudokuBoardSubset::kHorizontalLine, {4, 5, 6, 1, 2, 0, 0, 0, 1}, __LINE__);
+        aux::TestEqual(board, kDontCare, 2, SudokuBoardSubset::kHorizontalLine, {2, 1, 0, 0, 0, 3, 2, 1, 0}, __LINE__);
+        aux::TestEqual(board, kDontCare, 3, SudokuBoardSubset::kHorizontalLine, {0, 4, 5, 6, 4, 0, 0, 0, 0}, __LINE__);
+        aux::TestEqual(board, kDontCare, 4, SudokuBoardSubset::kHorizontalLine, {5, 4, 5, 4, 0, 0, 0, 4, 4}, __LINE__);
+        aux::TestEqual(board, kDontCare, 5, SudokuBoardSubset::kHorizontalLine, {0, 0, 0, 9, 8, 7, 4, 5, 0}, __LINE__);
+        aux::TestEqual(board, kDontCare, 6, SudokuBoardSubset::kHorizontalLine, {0, 0, 8, 9, 0, 5, 5, 0, 1}, __LINE__);
+        aux::TestEqual(board, kDontCare, 7, SudokuBoardSubset::kHorizontalLine, {0, 9, 8, 7, 0, 0, 1, 1, 2}, __LINE__);
+        aux::TestEqual(board, kDontCare, 8, SudokuBoardSubset::kHorizontalLine, {4, 5, 6, 1, 2, 0, 0, 0, 1}, __LINE__);
+
+        // Check vertical.
+        aux::TestEqual(board, 0, kDontCare, SudokuBoardSubset::kVerticalLine, {1, 4, 2, 0, 5, 0, 0, 0, 4}, __LINE__);
+        aux::TestEqual(board, 1, kDontCare, SudokuBoardSubset::kVerticalLine, {2, 5, 1, 4, 4, 0, 0, 9, 5}, __LINE__);
+        aux::TestEqual(board, 2, kDontCare, SudokuBoardSubset::kVerticalLine, {3, 6, 0, 5, 5, 0, 8, 8, 6}, __LINE__);
+        aux::TestEqual(board, 3, kDontCare, SudokuBoardSubset::kVerticalLine, {4, 1, 0, 6, 4, 9, 9, 7, 1}, __LINE__);
+    }
+    else
     {
         std::cout << err_message << std::endl;
     }
 
-    aux::TestEqual(board, kDontCare, 3, SudokuBoardSubset::kHorizontalLine, {0, 4, 5, 6, 4, 0, 0, 0, 0}, __LINE__);
 
     return 0;
 }

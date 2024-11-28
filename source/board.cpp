@@ -156,7 +156,7 @@ namespace sudsol
                 ++row;
             }
 
-            if (!is_fail && row < 8)
+            if (!is_fail && row < kMaxXY)
             {
                 is_fail = true;
                 err_message = kErrorIncorrectFileFormatRows;
