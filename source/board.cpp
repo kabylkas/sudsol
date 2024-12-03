@@ -95,7 +95,7 @@ namespace sudsol
             {
                 for (size_t j = 0; j < kSudokuSubSquareSize; j++)
                 {
-                    cell_ptrs[kSudokuSubSquareSize * i + j] = std::make_shared<Cell>(pimpl_->board[subsquare_x + i][subsquare_y + j]);
+                    cell_ptrs[kSudokuSubSquareSize * i + j] = std::make_shared<Cell>(pimpl_->board[subsquare_y + i][subsquare_x + j]);
                 }
             }
         }
