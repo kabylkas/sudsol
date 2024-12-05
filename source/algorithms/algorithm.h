@@ -12,6 +12,6 @@ namespace sudsol
     class IAlgorithm
     {
     public:
-        virtual bool Solve(const Board& board_to_solve, Board& solved_board, std::string& err_message) = 0;
+        virtual bool Solve(Board& board_to_solve, std::string& err_message) = 0;
     };
 }

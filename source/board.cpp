@@ -108,6 +108,23 @@ namespace sudsol
         return !is_fail;
     }
 
+    bool Board::GetValue(uint16_t x, uint16_t y, uint16_t& value, std::string& err_message) const
+    {
+        bool is_fail = false;
+
+        if (x < kMaxXY && y < kMaxXY)
+        {
+            value = pimpl_->board[x][y].value;
+        }
+        else
+        {
+            is_fail = true;
+            err_message = kErrorStringXYOutOfRange;
+        }
+
+        return !is_fail;
+    }
+
     bool Board::Load(const std::string& file_path, std::string& err_message)
     {
         bool is_fail = false;
